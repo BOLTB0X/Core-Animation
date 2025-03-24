@@ -11,6 +11,8 @@
 		BE701EB42D8FDD98004AEB04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE701EB32D8FDD98004AEB04 /* ContentView.swift */; };
 		BE701EB62D8FDD99004AEB04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE701EB52D8FDD99004AEB04 /* Assets.xcassets */; };
 		BE701EB92D8FDD99004AEB04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE701EB82D8FDD99004AEB04 /* Preview Assets.xcassets */; };
+		BEA0C4C42D9038B000600D28 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA0C4C32D9038B000600D28 /* AnimationViewController.swift */; };
+		BEA0C4C62D90391700600D28 /* AnimationVCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA0C4C52D90391700600D28 /* AnimationVCView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		BE701EB32D8FDD98004AEB04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BE701EB52D8FDD99004AEB04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE701EB82D8FDD99004AEB04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BEA0C4C32D9038B000600D28 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
+		BEA0C4C52D90391700600D28 /* AnimationVCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationVCView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 				BE701EB32D8FDD98004AEB04 /* ContentView.swift */,
 				BE701EB52D8FDD99004AEB04 /* Assets.xcassets */,
 				BE701EB72D8FDD99004AEB04 /* Preview Content */,
+				BEA0C4C32D9038B000600D28 /* AnimationViewController.swift */,
+				BEA0C4C52D90391700600D28 /* AnimationVCView.swift */,
 			);
 			path = CoreAnimation01;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA0C4C62D90391700600D28 /* AnimationVCView.swift in Sources */,
+				BEA0C4C42D9038B000600D28 /* AnimationViewController.swift in Sources */,
 				BE701EB42D8FDD98004AEB04 /* ContentView.swift in Sources */,
 				BE701EB22D8FDD98004AEB04 /* CoreAnimation01App.swift in Sources */,
 			);

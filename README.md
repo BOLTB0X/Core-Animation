@@ -2,8 +2,6 @@
 
 ![낼름낼름](https://mblogthumb-phinf.pstatic.net/MjAyMjA3MTdfMjEw/MDAxNjU3OTk1MzQ5ODA0.k6xBU4rn2o6EcIOP9Yr3X2GDNezS8axxu0n9cMDK8X8g.QsyQGCEVCxnBg_XDHnpSQ9tzSdqTvtS-1W2jArA5-DMg.GIF.gogoa25/IMG_6840.GIF?type=w800)
 
-낼름낼름
-
 ## Core Animation
 
 <details>
@@ -45,6 +43,83 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 </details>
 
 <details>
+<summary> 기본 개념 </summary>
+
+<br/>
+
+> Layer , CALayer , UIView 개념이 중요
+
+| 개념        | 설명                                                                          |
+| ----------- | ----------------------------------------------------------------------------- |
+| **Layer**   | 그래픽을 렌더링하는 기본 단위. GPU 가속을 활용하여 최적화된 그리기 연산 수행  |
+| **CALayer** | Core Animation에서 제공하는 레이어 객체. UIView의 애니메이션 및 렌더링을 담당 |
+| **UIView**  | UIKit의 기본 UI 요소로, 내부적으로 CALayer를 포함하여 화면에 그려짐           |
+
+**UIView** 가 그리기 연산을 직접 수행 X, **Core Animation** 에게 **CALayer** 타입의 프로퍼티인 **layer** 를 통해 delegate
+
+<br/>
+
+1. **layer**
+
+   > The view’s Core Animation layer to use for rendering.
+
+   ```swift
+   @MainActor
+   var layer: CALayer { get }
+   // iOS 2.0+ | iPadOS 2.0+ | Mac Catalyst 13.1+ | tvOS | visionOS 1.0+
+   ```
+
+   - 그래픽을 렌더링하는 기본 단위
+
+   - 결코 `nill` 을 갖지 않음
+     <br/>
+
+2. **CALayer**
+
+   > An object that manages image-based content and allows you to perform animations on that content.
+
+   ```swift
+   class CALayer
+   // iOS 2.0+ | iPadOS 2.0+ | Mac Catalyst 13.1+ | macOS 10.5+ | tvOS 9.0+ | visionOS 1.0+
+   // CA: Core Animation의 약자
+   ```
+
+   - Core Animation의 핵심, Core Animation 뷰에서 이미지 기반의 컨텐츠를 관리하고 애니메이션을 수행하는 객체
+
+     - **CALayer** 기반으로 애니메이션을 직접 조작(타이밍, 중첩 효과, 3D 변환 등)
+       <br/>
+
+   - `backgroundColor`, `border`, `shadow` 등 프로퍼티들은 **CALayer** 에 속함
+   - 콘텐츠를 화면에 표시하는 데 사용되는 `geometry` 를 포함
+   - **CALayer(Root)** 는 여러 개의 **SubLayer** 를 둘 수 있음
+     <br/>
+
+3. **UIView**
+
+   > An object that manages the content for a rectangular area on the screen.
+
+   ```swift
+   @MainActor
+   class UIView
+   // iOS 2.0+ | iPadOS 2.0+ | Mac Catalyst 13.1+ | tvOS | visionOS 1.0+
+   ```
+
+   - 화면(UI) 을 담당하는 UIKit 내 클래스
+
+     - UIKit에 속한 UIView를 이용하여 UI 를 그림
+
+     - 레이아웃, 터치 이벤트 등 관련 작업을 처리
+
+     - 뷰 위에 컨텐츠나 애니메이션을 그리기 연산은 **UIView** 가 하지 않음
+       <br/>
+
+   - **UIView** 내부에 **CALayer**가 존재 , 실제 그래픽 처리는 **CALayer**가 담당
+     - UIView는 하나의 CALayer(Root)만 가짐
+       <br/>
+
+</details>
+
+<details>
 <summary> Metal , Core Graphics , Core Animation 차이</summary>
 
 | **기술**           | **역할**                                                  | **위치**                                       |
@@ -55,8 +130,170 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
 </details>
 
+## Practice
+
+<details>
+<summary> CALayer </summary>
+
+1. `UIView` 생성
+   화면에 표시 하는 코드
+
+   ```swift
+   class AnimationViewController: UIViewController {
+
+       override func viewDidLoad() {
+           super.viewDidLoad()
+
+           createUIView(frame: CGRect(x: 40, y: 60, width: 120, height: 80), backgroundColor: .blue)
+       }
+
+       // MARK: - createUIView
+       private func createUIView(frame: CGRect, backgroundColor: UIColor?) {
+           let myView = UIView(frame: frame)
+           myView.backgroundColor = backgroundColor
+           view.addSubview(myView)
+       }
+   }
+   ```
+
+   <br/>
+
+2. `CALayer` -> 모서리를 둥굴게
+
+   ```swift
+   class AnimationViewController: UIViewController {
+
+       override func viewDidLoad() {
+           super.viewDidLoad()
+
+           //createUIView(frame: CGRect(x: 40, y: 60, width: 120, height: 80), backgroundColor: .blue)
+           createRoundedcorners(frame: CGRect(x: 40, y: 60, width: 120, height: 80),
+                                backgroundColor: UIColor.red.cgColor,
+                                cornerRadius: 20)
+       }
+
+       // ....
+
+       // MARK: - createRoundedcorners
+       private func createRoundedcorners(frame: CGRect,
+                                         backgroundColor: CGColor?,
+                                         cornerRadius: CGFloat) {
+           let myLayer = CALayer()
+           myLayer.frame = frame
+           myLayer.backgroundColor = backgroundColor
+           myLayer.cornerRadius = cornerRadius
+           view.layer.addSublayer(myLayer) // 뷰의 기본 layer에 추가
+       }
+
+   }
+   ```
+
+   <br/>
+
+3. 여러개의 도형을 겹치거나 그림을 그릴 때
+
+   ```swift
+   // MARK: - createMutiRectangle
+   private func createMutiRectangle(_ myLayer: CALayer) {
+      let layer1: CALayer = CALayer()
+      layer1.frame = .init(x: 10, y: 10, width: 100, height: 100)
+      layer1.backgroundColor = UIColor.blue.cgColor
+      myLayer.addSublayer(layer1)
+
+      let layer2: CALayer = CALayer()
+      layer2.frame = .init(x: 120, y: 10, width: 100, height: 100)
+      layer2.backgroundColor = UIColor.green.cgColor
+      myLayer.addSublayer(layer2)
+
+      let layer3: CALayer = CALayer()
+      layer3.frame = .init(x: 230, y: 10, width: 100, height: 100)
+      layer3.backgroundColor = UIColor.yellow.cgColor
+      myLayer.addSublayer(layer3)
+   }
+   ```
+
+   <br/>
+
+4. 마스크(masksToBounds) 및 Shadow 효과
+
+   ```swift
+   // MARK: - applyShadow
+   private func applyShadow(_ myLayer: CALayer,
+                            shadowColor: CGColor?, // 그림자 색상
+                            shadowOpacity: Float, // 그림자 불투명도 (0~1)
+                            shadowOffset: CGSize, // 그림자 위치
+                            shadowRadius: CGFloat) { // 그림자의 흐림 정도
+         myLayer.shadowColor = UIColor.black.cgColor
+         myLayer.shadowOpacity = 0.5
+         myLayer.shadowOffset = CGSize(width: 5, height: 5)
+         myLayer.shadowRadius = 10
+         myLayer.masksToBounds = false // false여야 그림자가 표시됨
+   } // applyShadow
+   ```
+
+   ```swift
+    // MARK: - createRoundedcorners
+    private func createRoundedcorners(frame: CGRect,
+                                      backgroundColor: CGColor?,
+                                      cornerRadius: CGFloat) {
+
+         // ...
+
+         applyShadow(myLayer,
+                     shadowColor: UIColor.black.cgColor,
+                     shadowOpacity: 0.5,
+                     shadowOffset: CGSize(width: 5, height: 5),
+                     shadowRadius: 10) // 추가
+    } // createRoundedcorners
+
+    // MARK: - createMutiRectangle
+    private func createMutiRectangle(_ myLayer: CALayer) {
+         // ...
+
+        applyShadow(layer1,
+                    shadowColor: UIColor.blue.cgColor,
+                    shadowOpacity: 0.5,
+                    shadowOffset: CGSize(width: 5, height: 5),
+                    shadowRadius: 10)
+
+         // ...
+
+        applyShadow(layer2,
+                    shadowColor: UIColor.green.cgColor,
+                    shadowOpacity: 0.5,
+                    shadowOffset: CGSize(width: 5, height: 5),
+                    shadowRadius: 10)
+
+         // ...
+
+        applyShadow(layer3,
+                    shadowColor: UIColor.yellow.cgColor,
+                    shadowOpacity: 0.5,
+                    shadowOffset: CGSize(width: 5, height: 5),
+                    shadowRadius: 10)
+
+    } // createMutiRectangle
+   ```
+
+   <br/>
+
+</details>
+
 ## 참고
 
 - [공식문서 - Core Animation](https://developer.apple.com/documentation/quartzcore)
 
+  - [공식문서 - layer](https://developer.apple.com/documentation/uikit/uiview/layer)
+  - [공식문서 - CALayer](https://developer.apple.com/documentation/QuartzCore/CALayer)
+  - [공식문서 - UIView](https://developer.apple.com/documentation/uikit/uiview)
+  - [공식문서 - animation(forKey:)](<https://developer.apple.com/documentation/quartzcore/calayer/animation(forkey:)>)
+
 - [Core Animation Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW3)
+
+- [개발자 소들이 - iOS) CALayer 제대로 이해하기](https://babbab2.tistory.com/53)
+
+- [개발자 소들이 - iOS) ClipsToBounds vs MasksToBounds](https://babbab2.tistory.com/47)
+
+- [PinguiOS - CALayer 알아보기 1](https://icksw.tistory.com/181)
+
+- [seokyoungg - CAAnimation](https://seokyoungg.tistory.com/83)
