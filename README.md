@@ -40,10 +40,54 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    - 애니메이션을 실행해도 **Main Thread** 를 차단하지 않으며 , 비동기적으로 실행 됨
      <br/>
 
+<p align="center">
+<table style="width:100%; text-align:center; border-spacing:20px;">
+<tr>
+   <td style="text-align:center; vertical-align:middle;">
+      <p align="center">
+      <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/UIview%20%EC%83%9D%EC%84%B1.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+      </p>
+   </td>
+   <td style="text-align:center; vertical-align:middle;">
+      <p align="center">
+      <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+      </p>
+   </td>
+</tr>
+<tr>
+   <td style="text-align:center; font-size:14px; font-weight:bold;">
+   <p align="center">
+      UIView 이용
+   </p>
+   </td>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+   <p align="center">
+      CALayer 이용
+   </p>
+   </td>
+</table>
+</p>
+
+- **UIView** 그리기 방식이 **UIKit** 직접 관리
+- **CALayer** 기반으로 동작 -> GPU가 직접 그리는 방식 -> **CoreAnimation** 기반
+
+|                 | UIView                                                  | CALayer                                          |
+| --------------- | ------------------------------------------------------- | ------------------------------------------------ |
+| **역할**        | 화면에 표시되는 UI 요소 (버튼, 라벨, 이미지 뷰 등)      | UIView의 내부 그래픽을 담당하는 저수준 레이어    |
+| **계층 구조**   | UIView끼리 부모-자식 관계를 형성                        | UIView의 `layer` 속성을 통해 관리                |
+| **그리기 방식** | 시스템이 필요할 때 자동으로 다시 그림 (`draw(_:)` 호출) | GPU가 직접 그리는 방식                           |
+| **사용 사례**   | 버튼, 라벨, 이미지 뷰 등 UI 요소                        | 그림자, 둥근 모서리, 애니메이션, 퍼포먼스 최적화 |
+
+<br/>
+
 </details>
 
 <details>
-<summary> 기본 개념 </summary>
+<summary> Layer , CALayer , UIView </summary>
 
 <br/>
 
@@ -56,8 +100,6 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 | **UIView**  | UIKit의 기본 UI 요소로, 내부적으로 CALayer를 포함하여 화면에 그려짐           |
 
 **UIView** 가 그리기 연산을 직접 수행 X, **Core Animation** 에게 **CALayer** 타입의 프로퍼티인 **layer** 를 통해 delegate
-
-<br/>
 
 1. **layer**
 
@@ -122,6 +164,8 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 <details>
 <summary> Metal , Core Graphics , Core Animation 차이</summary>
 
+<br/>
+
 | **기술**           | **역할**                                                  | **위치**                                       |
 | ------------------ | --------------------------------------------------------- | ---------------------------------------------- |
 | **Metal**          | 저수준 그래픽 API, GPU 활용 최적화                        | 가장 하위 (GPU 레벨)                           |
@@ -130,13 +174,76 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
 </details>
 
+## Study
+
+- [CABasicAnimation 이란?]()
+
 ## Practice
 
 <details>
 <summary> CALayer </summary>
 
-1. `UIView` 생성
-   화면에 표시 하는 코드
+<p align="center">
+  <table style="width:100%; text-align:center; border-spacing:20px;">
+    <tr>
+        <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EB%AA%A8%EC%84%9C%EB%A6%AC%20%EB%91%A5%EA%B8%80%EA%B2%8C.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+      </td>
+        <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%ED%85%8C%EB%91%90%EB%A6%AC.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+      </td>
+      <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EA%B7%B8%EB%A6%BC%EC%9D%84%20%EA%B2%B9%EC%B9%A0%EB%95%8C.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+      </td>
+            <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
+             alt="image 1" 
+             style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+      <p align="center">
+      모서리 둥글게
+      </p>
+      </td>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+      <p align="center">
+      테두리 굵게
+      </p>
+      </td>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+      <p align="center">
+      그림 겹치기
+      </p>
+      </td>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+      <p align="center">
+      쉐도우
+      </p>
+      </td>
+    </tr>
+  </table>
+</p>
+
+1. `UIView` 생성 -> 화면에 표시
+
+   <details>
+   <summary> 코드 </summary>
 
    ```swift
    class AnimationViewController: UIViewController {
@@ -156,9 +263,14 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    }
    ```
 
+   </details>
+
    <br/>
 
 2. `CALayer` -> 모서리를 둥굴게
+
+   <details>
+   <summary> 코드 </summary>
 
    ```swift
    class AnimationViewController: UIViewController {
@@ -188,9 +300,13 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    }
    ```
 
+   </details>
    <br/>
 
 3. 여러개의 도형을 겹치거나 그림을 그릴 때
+
+   <details>
+   <summary> 코드 </summary>
 
    ```swift
    // MARK: - createMutiRectangle
@@ -212,9 +328,14 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    }
    ```
 
+   </details>
+
    <br/>
 
 4. 마스크(masksToBounds) 및 Shadow 효과
+
+   <details>
+   <summary> 코드 </summary>
 
    ```swift
    // MARK: - applyShadow
@@ -275,6 +396,19 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
     } // createMutiRectangle
    ```
 
+   </details>
+
+   <br/>
+
+</details>
+
+<details>
+<summary> CABasicAnimation </summary>
+
+1. **Move 애니메이션**
+   <br/>
+
+2. **Shake** , **Scale(opacity)** , **Fade**
    <br/>
 
 </details>
@@ -286,7 +420,7 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
   - [공식문서 - layer](https://developer.apple.com/documentation/uikit/uiview/layer)
   - [공식문서 - CALayer](https://developer.apple.com/documentation/QuartzCore/CALayer)
   - [공식문서 - UIView](https://developer.apple.com/documentation/uikit/uiview)
-  - [공식문서 - animation(forKey:)](<https://developer.apple.com/documentation/quartzcore/calayer/animation(forkey:)>)
+  - [공식문서 - CABasicAnimation](https://developer.apple.com/documentation/quartzcore/cabasicanimation#2776772)
 
 - [Core Animation Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW3)
 
