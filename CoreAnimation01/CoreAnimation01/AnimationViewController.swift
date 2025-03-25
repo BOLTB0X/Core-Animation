@@ -36,12 +36,17 @@ class AnimationViewController: UIViewController {
         myLayer.borderWidth = 5
         view.layer.addSublayer(myLayer) // 뷰의 기본 layer에 추가
         
-        createMutiRectangle(myLayer)
-        applyShadow(myLayer,
-                    shadowColor: UIColor.black.cgColor,
-                    shadowOpacity: 0.5,
-                    shadowOffset: CGSize(width: 5, height: 5),
-                    shadowRadius: 10)
+//        createMutiRectangle(myLayer)
+//        applyShadow(myLayer,
+//                    shadowColor: UIColor.black.cgColor,
+//                    shadowOpacity: 0.5,
+//                    shadowOffset: CGSize(width: 5, height: 5),
+//                    shadowRadius: 10)
+        
+        //applyPositionChange(to: myLayer)
+        //applyMoveAnimation(to: myLayer)
+        //applyMoveAnimationWithFillMode(to: myLayer)
+        applyRotation(to: myLayer)
     } // createRoundedcorners
     
     // MARK: - createMutiRectangle
@@ -96,6 +101,28 @@ class AnimationViewController: UIViewController {
 }
 
 extension AnimationViewController {
+    // MARK: - applyPositionChange
+    private func applyPositionChange(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = 0
+        animation.toValue = self.view.bounds.width
+        animation.duration = 1.0
+        layer.add(animation, forKey: nil)
+    } //
+    
+    // MARK: - applyMoveAnimation
+    private func applyMoveAnimation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.fromValue = CGPoint(x: 50, y: 50)  // 시작
+        animation.toValue = CGPoint(x: 200, y: 200) // 종료
+        animation.duration = 1.5
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // 속도 조절
+        animation.repeatCount = Float.infinity      // 무한 반복
+        animation.autoreverses = true               // 애니메이션이 끝나면 반대로 실행
+
+        layer.add(animation, forKey: "move")
+    }
+    
     // MARK: - applyShakeAnimation
     private func applyShakeAnimation(to layer: CALayer) {
         let animation = CABasicAnimation(keyPath: "position.x")
@@ -128,4 +155,27 @@ extension AnimationViewController {
         animation.autoreverses = true
         layer.add(animation, forKey: "fade")
     } // applyFadeAnimation
+    
+    // MARK: - applyMoveAnimationWithFillMode
+    private func applyMoveAnimationWithFillMode(to layer: CALayer) {
+        let moveAnimation = CABasicAnimation(keyPath: "position")
+        moveAnimation.fromValue = CGPoint(x: 50, y: 50)
+        moveAnimation.toValue = CGPoint(x: 200, y: 200)
+        moveAnimation.duration = 1.5
+        moveAnimation.fillMode = .forwards // 종료 후 최종 상태 유지
+        moveAnimation.isRemovedOnCompletion = true
+
+        layer.add(moveAnimation, forKey: "move")
+        return
+    }
+    
+    // MARK: - applyRotation
+    private func applyRotation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.fromValue = 0 // 시작 각도 (라디안)
+        animation.toValue = CGFloat.pi * 2 // 360도 회전 (2π 라디안)
+        animation.duration = 1.0 // 1초 동안 회전
+        animation.repeatCount = Float.infinity // 무한 반복
+        layer.add(animation, forKey: "rotation")
+    }
 }
