@@ -406,10 +406,176 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 <summary> CABasicAnimation </summary>
 
 1. **Move 애니메이션**
+   <p align="center">
+     <table style="width:100%; text-align:center; border-spacing:20px;">
+       <tr>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%95%A0%EB%8B%88%20%ED%82%A4%ED%8C%A8%EC%8A%A4%EB%8B%90.gif?raw=true" 
+             alt="image 1" 
+             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/move-%EB%B0%98%EB%B3%B5.gif?raw=true" 
+             alt="image 1" 
+             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/fillmode.gif?raw=true" 
+             alt="image 2" 
+             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/isRemovedOnCompletion-True.gif?raw=true" 
+             alt="image 2" 
+             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+         </tr>
+         <tr>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         keyPath: "position.x" , forKey: nil
+         </p>
+         </td>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         keyPath: "position" , forKey: "move"
+         </p>
+         </td>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         fillmode
+         </p>
+         </td>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         isRemovedOnCompletion: True
+         </p>
+         </td>
+       </tr>
+     </table>
+   </p>
+
+   <details>
+   <summary> 코드 </summary>
+
+   ```swift
+   // MARK: - applyPositionChange
+   private func applyPositionChange(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = 0
+        animation.toValue = self.view.bounds.width
+        animation.duration = 1.0
+        layer.add(animation, forKey: nil)
+   } //
+
+   // MARK: - applyMoveAnimation
+   private func applyMoveAnimation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.fromValue = CGPoint(x: 50, y: 50)  // 시작
+        animation.toValue = CGPoint(x: 200, y: 200) // 종료
+        animation.duration = 1.5
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // 속도 조절
+        animation.repeatCount = Float.infinity      // 무한 반복
+        animation.autoreverses = true               // 애니메이션이 끝나면 반대로 실행
+
+        layer.add(animation, forKey: "move")
+   }
+   ```
+
+   </details>
    <br/>
 
-2. **Shake** , **Scale(opacity)** , **Fade**
-   <br/>
+2. **Shake** , **Scale(opacity)** , **Fade** , **Rotate**
+   <p align="center">
+     <table style="width:100%; text-align:center; border-spacing:20px;">
+       <tr>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%B2%AB.gif?raw=true" 
+                alt="image 1" 
+                style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+         <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/rotate.gif?raw=true" 
+                alt="image 2" 
+                style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+         </td>
+       </tr>
+       <tr>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         Shake , Scale(opacity) , Fade
+         </p>
+         </td>
+         <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         Rotate
+         </p>
+         </td>
+       </tr>
+     </table>
+   </p>
+
+   <details>
+   <summary> 코드 </summary>
+
+   ```swift
+    // MARK: - applyShakeAnimation
+    private func applyShakeAnimation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = layer.position.x - 5
+        animation.toValue = layer.position.x + 5
+        animation.duration = 0.1
+        animation.repeatCount = Float.infinity
+        animation.autoreverses = true
+        layer.add(animation, forKey: "shake")
+    } // applyShakeAnimation
+
+    // MARK: - applyScaleAnimation
+    private func applyScaleAnimation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.fromValue = 1.0
+        animation.toValue = 1.2
+        animation.duration = 0.8
+        animation.repeatCount = Float.infinity
+        animation.autoreverses = true
+        layer.add(animation, forKey: "scale")
+    } // applyScaleAnimation
+
+    // MARK: - applyFadeAnimation
+    private func applyFadeAnimation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 1.0
+        animation.toValue = 0.3
+        animation.duration = 1.5
+        animation.repeatCount = Float.infinity
+        animation.autoreverses = true
+        layer.add(animation, forKey: "fade")
+    } // applyFadeAnimation
+
+    // MARK: - applyRotation
+    private func applyRotation(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.fromValue = 0 // 시작 각도 (라디안)
+        animation.toValue = CGFloat.pi * 2 // 360도 회전 (2π 라디안)
+        animation.duration = 1.0 // 1초 동안 회전
+        animation.repeatCount = Float.infinity // 무한 반복
+        layer.add(animation, forKey: "rotation")
+    }
+   ```
+
+   </details>
 
 </details>
 
@@ -421,6 +587,7 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
   - [공식문서 - CALayer](https://developer.apple.com/documentation/QuartzCore/CALayer)
   - [공식문서 - UIView](https://developer.apple.com/documentation/uikit/uiview)
   - [공식문서 - CABasicAnimation](https://developer.apple.com/documentation/quartzcore/cabasicanimation#2776772)
+  - [공식문서 - CAKeyframeAnimation](https://developer.apple.com/documentation/quartzcore/cakeyframeanimation)
 
 - [Core Animation Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW3)
 

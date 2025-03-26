@@ -12,8 +12,8 @@ class AnimationViewController: UIViewController {
         super.viewDidLoad()
         
         //createUIView(frame: CGRect(x: 40, y: 60, width: 120, height: 80), backgroundColor: .blue)
-        createRoundedcorners(frame: CGRect(x: 10, y: 150, width: 350, height: 300),
-                             backgroundColor: UIColor.red.cgColor,
+        createRoundedcorners(frame: CGRect(x: 100, y: 150, width: 350, height: 300),
+                             backgroundColor: UIColor.green.cgColor,
                              cornerRadius: 20)
     }
     
@@ -46,7 +46,9 @@ class AnimationViewController: UIViewController {
         //applyPositionChange(to: myLayer)
         //applyMoveAnimation(to: myLayer)
         //applyMoveAnimationWithFillMode(to: myLayer)
-        applyRotation(to: myLayer)
+        //applyRotation(to: myLayer)
+        //applyOfficialDocumentExample(to: myLayer)
+        applyWentHereAndThere(to: myLayer)
     } // createRoundedcorners
     
     // MARK: - createMutiRectangle
@@ -100,6 +102,7 @@ class AnimationViewController: UIViewController {
     } // applyShadow
 }
 
+// MARK: - CABasicAnimation
 extension AnimationViewController {
     // MARK: - applyPositionChange
     private func applyPositionChange(to layer: CALayer) {
@@ -177,5 +180,50 @@ extension AnimationViewController {
         animation.duration = 1.0 // 1초 동안 회전
         animation.repeatCount = Float.infinity // 무한 반복
         layer.add(animation, forKey: "rotation")
+    }
+    
+    // MARK: - applyAnimatingByScalar
+    private func applyAnimatingByScalar(to layer: CALayer) {
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 0  // 투명도 0 (완전 투명)
+        animation.toValue = 1    // 투명도 1 (완전 불투명)
+        layer.add(animation, forKey: "fade")
+    }
+}
+
+// MARK: - CAKeyframeAnimation
+extension AnimationViewController {
+    // MARK: - applyOfficialDocumentExample
+    private func applyOfficialDocumentExample(to layer: CALayer) {
+        let colorKeyframeAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+        colorKeyframeAnimation.values = [UIColor.red.cgColor,
+                                         UIColor.green.cgColor,
+                                         UIColor.blue.cgColor]
+        colorKeyframeAnimation.keyTimes = [0, 0.5, 1]
+        colorKeyframeAnimation.duration = 2
+        colorKeyframeAnimation.repeatCount = Float.infinity
+
+        layer.add(colorKeyframeAnimation, forKey: "backgroundColorAnimation")
+    } // applyOfficialDocumentExample
+    
+    // MARK: - applyWentHereAndThere
+    private func applyWentHereAndThere(to layer: CALayer) {
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.values = [
+            CGPoint(x: 100, y: 150),
+            CGPoint(x: 150, y: 100),
+            CGPoint(x: 250, y: 50),
+            CGPoint(x: 150, y: 200),
+            CGPoint(x: 100, y: 150)
+        ]
+        
+        animation.keyTimes = [0, 0.25, 0.5, 0.75, 1] // 각 keyframe의 진행 시간 비율
+        animation.duration = 2.0
+        animation.timingFunctions = [CAMediaTimingFunction(name: .easeInEaseOut)]
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        animation.repeatCount = Float.infinity
+
+        layer.add(animation, forKey: "positionAnimation")
     }
 }
