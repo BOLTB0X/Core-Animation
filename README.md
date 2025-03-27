@@ -41,36 +41,37 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
      <br/>
 
 <p align="center">
-<table style="width:100%; text-align:center; border-spacing:20px;">
-<tr>
-   <td style="text-align:center; vertical-align:middle;">
-      <p align="center">
-      <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/UIview%20%EC%83%9D%EC%84%B1.png?raw=true" 
+
+  <table style="width:100%; text-align:center; border-spacing:20px;">
+  <tr>
+     <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/UIview%20%EC%83%9D%EC%84%B1.png?raw=true" 
              alt="image 1" 
              style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
-      </p>
-   </td>
-   <td style="text-align:center; vertical-align:middle;">
-      <p align="center">
-      <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
+        </p>
+     </td>
+     <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
              alt="image 1" 
              style="width:150px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
-      </p>
-   </td>
-</tr>
-<tr>
-   <td style="text-align:center; font-size:14px; font-weight:bold;">
-   <p align="center">
-      UIView 이용
-   </p>
-   </td>
-      <td style="text-align:center; font-size:14px; font-weight:bold;">
-   <p align="center">
-      CALayer 이용
-   </p>
-   </td>
-</table>
-</p>
+        </p>
+     </td>
+  </tr>
+  <tr>
+     <td style="text-align:center; font-size:14px; font-weight:bold;">
+     <p align="center">
+        UIView 이용
+     </p>
+     </td>
+     <td style="text-align:center; font-size:14px; font-weight:bold;">
+     <p align="center">
+        CALayer 이용
+     </p>
+     </td>
+  </table>
+  </p>
 
 - **UIView** 그리기 방식이 **UIKit** 직접 관리
 - **CALayer** 기반으로 동작 -> GPU가 직접 그리는 방식 -> **CoreAnimation** 기반
@@ -176,7 +177,8 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
 ## Study
 
-- [CABasicAnimation 이란?]()
+- [CABasicAnimation 이란?](https://github.com/BOLTB0X/Core-Animation/blob/main/Study/CABasicAnimation.md)
+- [CAKeyframeAnimation 이란?](https://github.com/BOLTB0X/Core-Animation/blob/main/Study/CABasicAnimation.md)
 
 ## Practice
 
@@ -413,28 +415,28 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
            <p align="center">
            <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%95%A0%EB%8B%88%20%ED%82%A4%ED%8C%A8%EC%8A%A4%EB%8B%90.gif?raw=true" 
              alt="image 1" 
-             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
            </p>
          </td>
          <td style="text-align:center; vertical-align:middle;">
            <p align="center">
            <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/move-%EB%B0%98%EB%B3%B5.gif?raw=true" 
              alt="image 1" 
-             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
            </p>
          </td>
          <td style="text-align:center; vertical-align:middle;">
            <p align="center">
            <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/fillmode.gif?raw=true" 
              alt="image 2" 
-             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
            </p>
          </td>
          <td style="text-align:center; vertical-align:middle;">
            <p align="center">
            <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/isRemovedOnCompletion-True.gif?raw=true" 
              alt="image 2" 
-             style="width:200px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
            </p>
          </td>
          </tr>
@@ -576,6 +578,73 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    ```
 
    </details>
+   <br/>
+
+</details>
+
+<details>
+<summary> CAKeyframeAnimation </summary>
+
+<p align="center">
+
+  <table style="width:100%; text-align:center; border-spacing:20px;">
+  <tr>
+     <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/UIview%20%EC%83%9D%EC%84%B1.png?raw=true" 
+             alt="image 1" 
+             style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+     </td>
+     <td style="text-align:center; vertical-align:middle;">
+        <p align="center">
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
+             alt="image 1" 
+             style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+        </p>
+     </td>
+  </tr>
+  <tr>
+     <td style="text-align:center; font-size:14px; font-weight:bold;">
+     <p align="center">
+        Curve
+     </p>
+     </td>
+     <td style="text-align:center; font-size:14px; font-weight:bold;">
+     <p align="center">
+        autoreverses
+     </p>
+     </td>
+  </table>
+  </p>
+
+   <details>
+   <summary> 코드 </summary>
+
+    ```swift
+    // MARK: - applyMoveCurve
+    private func applyMoveCurve(to layer: CALayer) {
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        let path = UIBezierPath()
+
+        path.move(to: CGPoint(x: 20, y: 300))
+
+        path.addCurve(to: CGPoint(x: 350, y: 300),
+                      controlPoint1: CGPoint(x: 100, y: 50),
+                      controlPoint2: CGPoint(x: 270, y: 500))
+
+        animation.path = path.cgPath
+        animation.duration = 2.0
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.repeatCount = Float.infinity
+        animation.autoreverses = true
+
+        layer.add(animation, forKey: "curveAnimation")
+    } // applyMoveCurve
+    ```
+
+   </details>
+   <br/>
 
 </details>
 

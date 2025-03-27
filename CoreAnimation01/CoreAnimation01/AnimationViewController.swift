@@ -12,9 +12,13 @@ class AnimationViewController: UIViewController {
         super.viewDidLoad()
         
         //createUIView(frame: CGRect(x: 40, y: 60, width: 120, height: 80), backgroundColor: .blue)
-        createRoundedcorners(frame: CGRect(x: 100, y: 150, width: 350, height: 300),
+        createRoundedcorners(frame: CGRect(x: 25, y: 150, width: 350, height: 300),
                              backgroundColor: UIColor.green.cgColor,
                              cornerRadius: 20)
+        
+//        createRoundedCornersWithImage(frame: CGRect(x: 25, y: 150, width: 350, height: 300),
+//                                      image: UIImage(named: "CoCo"),
+//                                      cornerRadius: 20)
     }
     
     // MARK: - createUIView
@@ -23,6 +27,35 @@ class AnimationViewController: UIViewController {
         myView.backgroundColor = backgroundColor
         view.addSubview(myView)
     } // createUIView
+    
+    // MARK: - createRoundedCornersWithImage
+    private func createRoundedCornersWithImage(frame: CGRect,
+                                               image: UIImage?,
+                                               cornerRadius: CGFloat) {
+        let myLayer = CALayer()
+        myLayer.frame = frame
+        myLayer.cornerRadius = cornerRadius
+        myLayer.masksToBounds = true
+        myLayer.borderColor = UIColor.black.cgColor
+        myLayer.borderWidth = 5
+        myLayer.backgroundColor = UIColor.green.cgColor
+        
+        let imageLayer = CALayer()
+        let padding: CGFloat = 20
+        imageLayer.frame = myLayer.bounds.insetBy(dx: padding, dy: padding)
+        imageLayer.cornerRadius = myLayer.cornerRadius
+        imageLayer.masksToBounds = true
+        
+        if let image = image {
+            imageLayer.contents = image.cgImage
+            imageLayer.contentsGravity = .resizeAspectFill
+        }
+        
+        myLayer.addSublayer(imageLayer) // 서브 레이어를 상위 레이어에 add
+        view.layer.addSublayer(myLayer)
+        
+        applyMoveCurve(to: myLayer)
+    }
     
     // MARK: - createRoundedcorners
     private func createRoundedcorners(frame: CGRect,
@@ -36,19 +69,21 @@ class AnimationViewController: UIViewController {
         myLayer.borderWidth = 5
         view.layer.addSublayer(myLayer) // 뷰의 기본 layer에 추가
         
-//        createMutiRectangle(myLayer)
-//        applyShadow(myLayer,
-//                    shadowColor: UIColor.black.cgColor,
-//                    shadowOpacity: 0.5,
-//                    shadowOffset: CGSize(width: 5, height: 5),
-//                    shadowRadius: 10)
+        //        createMutiRectangle(myLayer)
+        //        applyShadow(myLayer,
+        //                    shadowColor: UIColor.black.cgColor,
+        //                    shadowOpacity: 0.5,
+        //                    shadowOffset: CGSize(width: 5, height: 5),
+        //                    shadowRadius: 10)
         
         //applyPositionChange(to: myLayer)
         //applyMoveAnimation(to: myLayer)
         //applyMoveAnimationWithFillMode(to: myLayer)
         //applyRotation(to: myLayer)
         //applyOfficialDocumentExample(to: myLayer)
-        applyWentHereAndThere(to: myLayer)
+        //        applyWentHereAndThere(to: myLayer)
+                applyAlpha(to: myLayer)
+        //applyMoveCurve(to: myLayer)
     } // createRoundedcorners
     
     // MARK: - createMutiRectangle
@@ -122,7 +157,7 @@ extension AnimationViewController {
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // 속도 조절
         animation.repeatCount = Float.infinity      // 무한 반복
         animation.autoreverses = true               // 애니메이션이 끝나면 반대로 실행
-
+        
         layer.add(animation, forKey: "move")
     }
     
@@ -167,7 +202,7 @@ extension AnimationViewController {
         moveAnimation.duration = 1.5
         moveAnimation.fillMode = .forwards // 종료 후 최종 상태 유지
         moveAnimation.isRemovedOnCompletion = true
-
+        
         layer.add(moveAnimation, forKey: "move")
         return
     }
@@ -202,7 +237,7 @@ extension AnimationViewController {
         colorKeyframeAnimation.keyTimes = [0, 0.5, 1]
         colorKeyframeAnimation.duration = 2
         colorKeyframeAnimation.repeatCount = Float.infinity
-
+        
         layer.add(colorKeyframeAnimation, forKey: "backgroundColorAnimation")
     } // applyOfficialDocumentExample
     
@@ -223,7 +258,42 @@ extension AnimationViewController {
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         animation.repeatCount = Float.infinity
-
+        
         layer.add(animation, forKey: "positionAnimation")
-    }
+    } // applyWentHereAndThere
+    
+    // MARK: - applyAlpha
+    private func applyAlpha(to layer: CALayer) {
+        let animation = CAKeyframeAnimation(keyPath: "opacity")
+        animation.values = [0.2, 0.4, 0.7, 1]
+        animation.keyTimes = [0.0, 0.3, 0.7, 1.0]
+        animation.timingFunctions = [
+            CAMediaTimingFunction(name: .easeIn),
+            CAMediaTimingFunction(name: .linear),
+            CAMediaTimingFunction(name: .easeOut)
+        ]
+        animation.repeatCount = Float.infinity
+        
+        layer.add(animation, forKey: "alpha")
+    } // applyAlpha
+    
+    // MARK: - applyMoveCurve
+    private func applyMoveCurve(to layer: CALayer) {
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint(x: 20, y: 300))
+        
+        path.addCurve(to: CGPoint(x: 350, y: 300),
+                      controlPoint1: CGPoint(x: 100, y: 50),
+                      controlPoint2: CGPoint(x: 270, y: 500))
+        
+        animation.path = path.cgPath
+        animation.duration = 2.0
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.repeatCount = Float.infinity
+        animation.autoreverses = true
+        
+        layer.add(animation, forKey: "curveAnimation")
+    } // applyMoveCurve
 }
