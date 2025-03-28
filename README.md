@@ -178,7 +178,7 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 ## Study
 
 - [CABasicAnimation 이란?](https://github.com/BOLTB0X/Core-Animation/blob/main/Study/CABasicAnimation.md)
-- [CAKeyframeAnimation 이란?](https://github.com/BOLTB0X/Core-Animation/blob/main/Study/CABasicAnimation.md)
+- [CAKeyframeAnimation 이란?](https://github.com/BOLTB0X/Core-Animation/blob/main/Study/CAKeyframeAnimation.md)
 
 ## Practice
 
