@@ -242,10 +242,8 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
   </table>
 </p>
 
-1. `UIView` 생성 -> 화면에 표시
-
    <details>
-   <summary> 코드 </summary>
+   <summary> UIView 생성 -> 화면에 표시 코드 </summary>
 
    ```swift
    class AnimationViewController: UIViewController {
@@ -267,12 +265,8 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
    </details>
 
-   <br/>
-
-2. `CALayer` -> 모서리를 둥굴게
-
    <details>
-   <summary> 코드 </summary>
+   <summary>  CALayer -> 모서리를 둥굴게 코드 </summary>
 
    ```swift
    class AnimationViewController: UIViewController {
@@ -303,12 +297,9 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    ```
 
    </details>
-   <br/>
-
-3. 여러개의 도형을 겹치거나 그림을 그릴 때
 
    <details>
-   <summary> 코드 </summary>
+   <summary> 여러개의 도형을 겹치거나 그림을 그릴 때 코드 </summary>
 
    ```swift
    // MARK: - createMutiRectangle
@@ -332,12 +323,8 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
    </details>
 
-   <br/>
-
-4. 마스크(masksToBounds) 및 Shadow 효과
-
    <details>
-   <summary> 코드 </summary>
+   <summary> 마스크(masksToBounds) 및 Shadow 효과 코드 </summary>
 
    ```swift
    // MARK: - applyShadow
@@ -400,8 +387,6 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
    </details>
 
-   <br/>
-
 </details>
 
 <details>
@@ -415,69 +400,83 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
            <p align="center">
            <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%95%A0%EB%8B%88%20%ED%82%A4%ED%8C%A8%EC%8A%A4%EB%8B%90.gif?raw=true" 
              alt="image 1" 
-             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
-           </p>
-         </td>
-         <td style="text-align:center; vertical-align:middle;">
-           <p align="center">
-           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/move-%EB%B0%98%EB%B3%B5.gif?raw=true" 
-             alt="image 1" 
-             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
-           </p>
-         </td>
-         <td style="text-align:center; vertical-align:middle;">
-           <p align="center">
-           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/fillmode.gif?raw=true" 
-             alt="image 2" 
-             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
-           </p>
-         </td>
-         <td style="text-align:center; vertical-align:middle;">
-           <p align="center">
-           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/isRemovedOnCompletion-True.gif?raw=true" 
-             alt="image 2" 
-             style="width:150px; height:400px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+             style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
            </p>
          </td>
          </tr>
          <tr>
          <td style="text-align:center; font-size:14px; font-weight:bold;">
          <p align="center">
-         keyPath: "position.x" , forKey: nil
-         </p>
-         </td>
-         <td style="text-align:center; font-size:14px; font-weight:bold;">
-         <p align="center">
-         keyPath: "position" , forKey: "move"
-         </p>
-         </td>
-         <td style="text-align:center; font-size:14px; font-weight:bold;">
-         <p align="center">
-         fillmode
-         </p>
-         </td>
-         <td style="text-align:center; font-size:14px; font-weight:bold;">
-         <p align="center">
-         isRemovedOnCompletion: True
+         keyPath: "position.x"
          </p>
          </td>
        </tr>
      </table>
-   </p>
+     </p>
+   
+    <details>
+    <summary> keyPath: position.x , forKey: nil 코드 </summary>
 
-   <details>
-   <summary> 코드 </summary>
-
-   ```swift
-   // MARK: - applyPositionChange
-   private func applyPositionChange(to layer: CALayer) {
+    ```swift
+    // MARK: - applyPositionChange
+    private func applyPositionChange(to layer: CALayer) {
         let animation = CABasicAnimation(keyPath: "position.x")
         animation.fromValue = 0
         animation.toValue = self.view.bounds.width
         animation.duration = 1.0
         layer.add(animation, forKey: nil)
-   } //
+    } //
+    ```
+    </details>
 
+    <p align="center">
+    <table style="width:100%; text-align:center; border-spacing:20px;">
+    <tr>
+      <td style="text-align:center; vertical-align:middle;">
+           <p align="center">
+           <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/move-%EB%B0%98%EB%B3%B5.gif?raw=true" 
+             alt="image 1" 
+             style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+           </p>
+       </td>
+       <td style="text-align:center; vertical-align:middle;">
+          <p align="center">
+          <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/fillmode.gif?raw=true" 
+               alt="image 1" 
+               style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+          </p>
+       </td>
+       <td style="text-align:center; vertical-align:middle;">
+          <p align="center">
+          <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/isRemovedOnCompletion-True.gif?raw=true" 
+               alt="image 1" 
+               style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
+          </p>
+       </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; font-size:14px; font-weight:bold;">
+         <p align="center">
+         keyPath:"position",forKey:"move"
+         </p>
+       </td>
+       <td style="text-align:center; font-size:14px; font-weight:bold;">
+       <p align="center">
+        fillmode
+       </p>
+       </td>
+       <td style="text-align:center; font-size:14px; font-weight:bold;">
+       <p align="center">
+          isRemovedOnCompletion: True
+       </p>
+       </td>
+     </table>
+   </p>
+
+   <details>
+   <summary> keyPath: "position", forKey: "move" 코드 </summary>
+
+   ```swift
    // MARK: - applyMoveAnimation
    private func applyMoveAnimation(to layer: CALayer) {
         let animation = CABasicAnimation(keyPath: "position")
@@ -495,7 +494,7 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
    </details>
    <br/>
 
-2. **Shake** , **Scale(opacity)** , **Fade** , **Rotate**
+1. **Shake** , **Scale(opacity)** , **Fade** , **Rotate**
    <p align="center">
      <table style="width:100%; text-align:center; border-spacing:20px;">
        <tr>
@@ -586,19 +585,18 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 <summary> CAKeyframeAnimation </summary>
 
 <p align="center">
-
   <table style="width:100%; text-align:center; border-spacing:20px;">
   <tr>
      <td style="text-align:center; vertical-align:middle;">
         <p align="center">
-        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/UIview%20%EC%83%9D%EC%84%B1.png?raw=true" 
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/CAKeyframe-%EC%BB%A4%EB%B8%8C%EB%AC%B4%EB%B8%8C.gif?raw=true" 
              alt="image 1" 
              style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
         </p>
      </td>
      <td style="text-align:center; vertical-align:middle;">
         <p align="center">
-        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/%EC%89%90%EB%8F%84%EC%9A%B0.png?raw=true" 
+        <img src="https://github.com/BOLTB0X/Core-Animation/blob/main/Img/CAKeyframe-%EC%BB%A4%EB%B8%8C%EB%AC%B4%EB%B8%8C-autoreverses.gif?raw=true" 
              alt="image 1" 
              style="width:200px; height:300px; object-fit:contain; border:1px solid #ddd; border-radius:4px;"/>
         </p>
@@ -616,12 +614,48 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
      </p>
      </td>
   </table>
-  </p>
+</p>
 
    <details>
-   <summary> 코드 </summary>
+   <summary> Layer 코드 </summary>
 
-    ```swift
+   ```swift
+    // MARK: - createRoundedCornersWithImage
+    private func createRoundedCornersWithImage(frame: CGRect,
+                                               image: UIImage?,
+                                               cornerRadius: CGFloat) {
+        let myLayer = CALayer()
+        myLayer.frame = frame
+        myLayer.cornerRadius = cornerRadius
+        myLayer.masksToBounds = true
+        myLayer.borderColor = UIColor.black.cgColor
+        myLayer.borderWidth = 5
+        myLayer.backgroundColor = UIColor.green.cgColor
+        
+        let imageLayer = CALayer()
+        let padding: CGFloat = 20
+        imageLayer.frame = myLayer.bounds.insetBy(dx: padding, dy: padding)
+        imageLayer.cornerRadius = myLayer.cornerRadius
+        imageLayer.masksToBounds = true
+        
+        if let image = image {
+            imageLayer.contents = image.cgImage
+            imageLayer.contentsGravity = .resizeAspectFill
+        }
+        
+        myLayer.addSublayer(imageLayer) // 서브 레이어를 상위 레이어에 add
+        view.layer.addSublayer(myLayer)
+        
+        applyMoveCurve(to: myLayer)
+    }
+   ```
+
+   </details>
+   
+   <details>
+   <summary> 애니메이션 코드 </summary>
+
+   ```swift
     // MARK: - applyMoveCurve
     private func applyMoveCurve(to layer: CALayer) {
         let animation = CAKeyframeAnimation(keyPath: "position")
@@ -641,7 +675,7 @@ App의 뷰 계층을 관리하면서 애니메이션을 최적화하는 프레�
 
         layer.add(animation, forKey: "curveAnimation")
     } // applyMoveCurve
-    ```
+   ```
 
    </details>
    <br/>
